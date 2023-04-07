@@ -17,6 +17,11 @@ builder.Services.AddDbContext<TourContext>(options => options.UseSqlServer(conne
 
 //DI
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<ICityRepository, CityRepository>();
+builder.Services.AddScoped<ICountryRepository, CountryRepository>();
+builder.Services.AddScoped<IHotelRepository, HotelRepository>();
+builder.Services.AddScoped<IRoomRepository, RoomRepository>();
+builder.Services.AddScoped<ITourRepository, TourRepository>();
 
 var app = builder.Build();
 

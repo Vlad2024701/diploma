@@ -7,12 +7,12 @@ namespace diploma.Db.Tour.Entities
     {
         [Key]
         public int Id { get; set; }
-        [Required]
         public string? Name { get; set; }
         
-        public virtual IList<Hotel>? Hotels { get; set; }
-        [ForeignKey("Id")]
+        public int CountryId { get; set; }
+        [ForeignKey("CountryId")]
         public virtual Country? Country { get; set; }
+        public virtual IList<Hotel>? Hotels { get; set; }
         public City()
         {
             Hotels= new List<Hotel>();

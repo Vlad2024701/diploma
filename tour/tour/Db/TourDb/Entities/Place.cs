@@ -1,5 +1,6 @@
 ﻿using diploma.Db.Tour.Entities;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace tour.Db.TourDb.Entities
 {
@@ -8,12 +9,12 @@ namespace tour.Db.TourDb.Entities
         public int Id { get; set; }
         public int PlaceNumber { get; set; }
         public int TourId { get; set; }
-        [ForeignKey("Id")]
+        [ForeignKey("TourId")]
         public virtual Tour? Tour { get; set; }
 
         public bool IsBooked { get; set; }
-        
-        [ForeignKey("Id")]
+        public int UserId { get; set; }
+        [ForeignKey("UserId")]
         public User? User { get; set; }
     }
 }

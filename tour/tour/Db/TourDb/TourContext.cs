@@ -6,7 +6,6 @@ namespace diploma.Db.Tour
 {
     public partial class TourContext : DbContext
     {
-
         public TourContext(DbContextOptions<TourContext> options) : base (options) { }
 
         public virtual DbSet<Entities.Tour> Tours { get; set; }
@@ -16,6 +15,15 @@ namespace diploma.Db.Tour
         public virtual DbSet<Country> Countries { get; set; }
         public virtual DbSet<City> Cities { get; set; }
         public virtual DbSet<Place> Places { get; set; }
+        public virtual DbSet<Ticket> Ticket { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>(entity =>
+            {
+                entity.ToTable("Tours");
+                entity.Property(e => e.Id).HasColumnName("id");
+            });
+        }
     }
 }

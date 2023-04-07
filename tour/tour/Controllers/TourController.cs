@@ -8,38 +8,38 @@ using tour.TourRepositories.IRepositories;
 namespace tour.Controllers
 {
     [ApiController]
-    [Route("api/user")]
+    [Route("api/tour")]
 
     public class TourController : ControllerBase
     {
         private readonly ILogger<TourController> _logger;
-        private readonly IUserRepository userRepository;
+        private readonly ITourRepository tourRepository;
 
-        public TourController(ILogger<TourController> logger, IUserRepository userRepository)
+        public TourController(ILogger<TourController> logger, ITourRepository tourRepository)
         {
-            this.userRepository = userRepository;
+            this.tourRepository = tourRepository;
             _logger = logger;
         }
 
-        [HttpPost]
-        [Route("getUser")]
-        [ProducesResponseType(typeof(User), (int)HttpStatusCode.OK)]
-        [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        public IActionResult GetUser(int id)
-        {
-            try
-            {
-                var user = userRepository.GetUserById(id);
-                if (user != null)
-                    return Ok(user);
-                else
-                    throw new Exception();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest($"Message: {ex.Message}");
-            }
-        }
+        //[HttpPost]
+        //[Route("getUser")]
+        //[ProducesResponseType(typeof(User), (int)HttpStatusCode.OK)]
+        //[ProducesResponseType((int)HttpStatusCode.NotFound)]
+        //public IActionResult GetUser(int id)
+        //{
+        //    try
+        //    {
+        //        var user = userRepository.GetUserById(id);
+        //        if (user != null)
+        //            return Ok(user);
+        //        else
+        //            throw new Exception();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest($"Message: {ex.Message}");
+        //    }
+        //}
     }
 }
 

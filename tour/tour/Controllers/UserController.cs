@@ -11,10 +11,6 @@ namespace tour.Controllers
     [Route("api/user")]
     public class UserController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
 
         private readonly ILogger<UserController> _logger;
         private readonly IUserRepository userRepository;
@@ -96,7 +92,7 @@ namespace tour.Controllers
         }
 
         [HttpPut]
-        [Route("createUser")]
+        [Route("updateUser")]
         [ProducesResponseType(typeof(User), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public IActionResult UpdateUser([FromBody] User user, int id)

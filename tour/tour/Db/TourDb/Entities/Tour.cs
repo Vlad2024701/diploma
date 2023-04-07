@@ -12,13 +12,20 @@ namespace diploma.Db.Tour.Entities
         public string? TourDescription { get; set; }
         public DateTime TourTimeStart { get; set; }
         public DateTime TourTimeEnd { get; set; }
-        [ForeignKey("Id")]
+
+        public int CountryId { get; set; }
+        [ForeignKey("CountryId")]
         public virtual Country? Country { get; set;}
-        [ForeignKey("Id")]
-        public virtual City? City { get; set; }
-        [ForeignKey("Id")]
-        public virtual Hotel? Hotel { get; set; }
-        public virtual IList<Place>? Places { get; set; }
+        //public int CityId { get; set; }
+        //[ForeignKey("CityId")]
+        //public virtual City? City { get; set; }
+        //public int HotelId { get; set; }
+        //[ForeignKey("HotelId")]
+        //public virtual Hotel? Hotel { get; set; }
+        //public int RoomId { get; set; }
+        //[ForeignKey("RoomId")]
+        //public virtual Room? Room { get; set; }
+        public virtual IList<Place> Places { get; set; }
 
         public Tour ()
         {

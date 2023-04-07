@@ -8,38 +8,38 @@ using tour.TourRepositories.IRepositories;
 namespace tour.Controllers
 {
     [ApiController]
-    [Route("api/user")]
+    [Route("api/hotel")]
 
     public class HotelController : ControllerBase
     {
         private readonly ILogger<HotelController> _logger;
-        private readonly IUserRepository userRepository;
+        private readonly IHotelRepository hotelRepository;
 
-        public HotelController(ILogger<HotelController> logger, IUserRepository userRepository)
+        public HotelController(ILogger<HotelController> logger, IHotelRepository hotelRepository)
         {
-            this.userRepository = userRepository;
+            this.hotelRepository = hotelRepository;
             _logger = logger;
         }
 
-        [HttpPost]
-        [Route("getUser")]
-        [ProducesResponseType(typeof(User), (int)HttpStatusCode.OK)]
-        [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        public IActionResult GetUser(int id)
-        {
-            try
-            {
-                var user = userRepository.GetUserById(id);
-                if (user != null)
-                    return Ok(user);
-                else
-                    throw new Exception();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest($"Message: {ex.Message}");
-            }
-        }
+        //[HttpPost]
+        //[Route("getUser")]
+        //[ProducesResponseType(typeof(User), (int)HttpStatusCode.OK)]
+        //[ProducesResponseType((int)HttpStatusCode.NotFound)]
+        //public IActionResult GetUser(int id)
+        //{
+        //    try
+        //    {
+        //        var user = userRepository.GetUserById(id);
+        //        if (user != null)
+        //            return Ok(user);
+        //        else
+        //            throw new Exception();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest($"Message: {ex.Message}");
+        //    }
+        //}
     }
 }
 

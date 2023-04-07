@@ -6,10 +6,9 @@ namespace diploma.Db.Tour.Entities
     {
         [Key]
         public int Id { get; set; }
-        [Required]
         public string? Name { get; set; }
 
-        public virtual IList<City>? Cities { get; set; }
+        public virtual IList<City> Cities { get; set; }
 
         public Country()
         {

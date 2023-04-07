@@ -6,18 +6,16 @@ namespace tour.Db.TourDb.Entities
 {
     public class Ticket
     {
-        //[Key]
-        //public int Id { get; set; }
-        //public int UserID { get; set; }
-
-        //[ForeignKey("Id")]
-        //public virtual Country? Country { get; set; }
-        //public int Place { get; set;}
-        ////public virtual IList<Room>? Rooms { get; set; }
-
-        ////public Hotel()
-        ////{
-        ////    Rooms = new List<Room>();
-        ////}
+        [Key]
+        public int Id { get; set; }
+        public int TourId { get; set; }
+        [ForeignKey("TourId")]
+        public virtual Tour? Country { get; set; }
+        public int PlaceId { get; set; }
+        [ForeignKey("PlaceId")]
+        public virtual Place? Place { get; set; }
+        public int UserId { get; set; }
+        [ForeignKey("UserId")]
+        public virtual User? User { get; set; }
     }
 }

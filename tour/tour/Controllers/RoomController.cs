@@ -8,38 +8,38 @@ using tour.TourRepositories.IRepositories;
 namespace tour.Controllers
 {
     [ApiController]
-    [Route("api/user")]
+    [Route("api/room")]
 
     public class RoomController : ControllerBase
     {
         private readonly ILogger<RoomController> _logger;
-        private readonly IUserRepository userRepository;
+        private readonly IRoomRepository roomRepository;
 
-        public RoomController(ILogger<RoomController> logger, IUserRepository userRepository)
+        public RoomController(ILogger<RoomController> logger, IRoomRepository roomRepository)
         {
-            this.userRepository = userRepository;
+            this.roomRepository = roomRepository;
             _logger = logger;
         }
 
-        [HttpPost]
-        [Route("getUser")]
-        [ProducesResponseType(typeof(User), (int)HttpStatusCode.OK)]
-        [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        public IActionResult GetUser(int id)
-        {
-            try
-            {
-                var user = userRepository.GetUserById(id);
-                if (user != null)
-                    return Ok(user);
-                else
-                    throw new Exception();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest($"Message: {ex.Message}");
-            }
-        }
+        //[HttpPost]
+        //[Route("getUser")]
+        //[ProducesResponseType(typeof(User), (int)HttpStatusCode.OK)]
+        //[ProducesResponseType((int)HttpStatusCode.NotFound)]
+        //public IActionResult GetUser(int id)
+        //{
+        //    try
+        //    {
+        //        var user = userRepository.GetUserById(id);
+        //        if (user != null)
+        //            return Ok(user);
+        //        else
+        //            throw new Exception();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest($"Message: {ex.Message}");
+        //    }
+        //}
     }
 }
 
