@@ -20,10 +20,48 @@ namespace tour.TourRepositories.Repositories
                 {
                     Id = x.Id,
                     Name = x.Name,
-                    Hotels  = x.Hotels
-                    
+                    CountryId = x.CountryId,
+                    Hotels = x.Hotels
                 }).ToList();
             return cities;
+        }
+
+        public City AddCity(City city)
+        {
+            try
+            {
+                tourContext.Cities.Add(city);
+                tourContext.SaveChanges();
+                return city;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error when trying to add new city\nMessage: {ex.Message}");
+                return city;
+            }
+        }
+        public City GetCityById(int id)
+        {
+            var city = tourContext.Cities.Where(x => x.Id == id)
+                .Select(x => new City
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    CountryId = x.CountryId
+                }).FirstOrDefault();
+            return city;
+        }
+        public bool DeleteCity(int id)
+        {
+            var city = GetCityById(id);
+            if (city != null)
+            {
+                tourContext.Cities.Remove(city);
+                tourContext.SaveChanges();
+                return true;
+            }
+            else
+                return false;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace diploma.Db.Tour.Entities
 {
@@ -13,6 +14,7 @@ namespace diploma.Db.Tour.Entities
         public string? WindowView { get; set; }
         public int HotelId { get; set; }
         [ForeignKey("HotelId")]
+        [JsonIgnore]
         public virtual Hotel? Hotel { get; set; }
     }
 }

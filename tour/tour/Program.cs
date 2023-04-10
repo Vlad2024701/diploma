@@ -1,5 +1,6 @@
 using diploma.Db.Tour;
 using Microsoft.EntityFrameworkCore;
+using tour.Migrations;
 using tour.TourRepositories.IRepositories;
 using tour.TourRepositories.Repositories;
 

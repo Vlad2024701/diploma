@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Data.Entity;
 using System.Net;
 using tour.TourRepositories.IRepositories;
+using tour.TourRepositories.Repositories;
 
 namespace tour.Controllers
 {
@@ -21,25 +22,59 @@ namespace tour.Controllers
             _logger = logger;
         }
 
-        //[HttpPost]
-        //[Route("getUser")]
-        //[ProducesResponseType(typeof(User), (int)HttpStatusCode.OK)]
-        //[ProducesResponseType((int)HttpStatusCode.NotFound)]
-        //public IActionResult GetUser(int id)
-        //{
-        //    try
-        //    {
-        //        var user = userRepository.GetUserById(id);
-        //        if (user != null)
-        //            return Ok(user);
-        //        else
-        //            throw new Exception();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest($"Message: {ex.Message}");
-        //    }
-        //}
+        [HttpGet]
+        [Route("GetCities")]
+        [ProducesResponseType(typeof(List<City>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        public IActionResult GetCities()
+        {
+            try
+            {
+                var cities = cityRepository.GetAll();
+                if (cities != null)
+                    return Ok(cities);
+                else
+                    throw new Exception();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Message: {ex.Message}");
+            }
+        }
+
+        [HttpPost]
+        [Route("AddCity")]
+        [ProducesResponseType(typeof(City), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        public IActionResult AddCity(City city)
+        {
+            try
+            {
+                var newCity = cityRepository.AddCity(city);
+                return Ok(newCity);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Message: {ex.Message}");
+            }
+        }
+
+        [HttpDelete]
+        [Route("deleteCity")]
+        [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        public IActionResult DeleteUser(int id)
+        {
+            try
+            {
+                var city = cityRepository.DeleteCity(id);
+                return Ok(city);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Message: {ex.Message}");
+            }
+        }
     }
 }
 

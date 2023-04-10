@@ -17,13 +17,13 @@ namespace diploma.Db.Tour
         public virtual DbSet<Place> Places { get; set; }
         public virtual DbSet<Ticket> Ticket { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<User>(entity =>
-            {
-                entity.ToTable("Tours");
-                entity.Property(e => e.Id).HasColumnName("id");
-            });
-        }
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Entity<User>(entity =>
+        //    {
+        //        entity.ToTable("Tours");
+        //        entity.Property(e => e.Id).HasColumnName("id");
+        //    });
+        //}
     }
 }

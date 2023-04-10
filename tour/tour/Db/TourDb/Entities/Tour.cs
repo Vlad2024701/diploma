@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 using tour.Db.TourDb.Entities;
 
 namespace diploma.Db.Tour.Entities
@@ -15,6 +16,7 @@ namespace diploma.Db.Tour.Entities
 
         public int CountryId { get; set; }
         [ForeignKey("CountryId")]
+        [JsonIgnore]
         public virtual Country? Country { get; set;}
         //public int CityId { get; set; }
         //[ForeignKey("CityId")]
@@ -26,7 +28,6 @@ namespace diploma.Db.Tour.Entities
         //[ForeignKey("RoomId")]
         //public virtual Room? Room { get; set; }
         public virtual IList<Place> Places { get; set; }
-
         public Tour ()
         {
             Places = new List<Place> ();
