@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Data.Entity;
 using System.Net;
 using tour.TourRepositories.IRepositories;
+using tour.TourRepositories.Repositories;
 
 namespace tour.Controllers
 {
@@ -21,25 +22,59 @@ namespace tour.Controllers
             _logger = logger;
         }
 
-        //[HttpPost]
-        //[Route("getUser")]
-        //[ProducesResponseType(typeof(User), (int)HttpStatusCode.OK)]
-        //[ProducesResponseType((int)HttpStatusCode.NotFound)]
-        //public IActionResult GetUser(int id)
-        //{
-        //    try
-        //    {
-        //        var user = userRepository.GetUserById(id);
-        //        if (user != null)
-        //            return Ok(user);
-        //        else
-        //            throw new Exception();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest($"Message: {ex.Message}");
-        //    }
-        //}
+        [HttpGet]
+        [Route("GetTours")]
+        [ProducesResponseType(typeof(List<Tour>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        public IActionResult GetTours()
+        {
+            try
+            {
+                var tours = tourRepository.GetAll();
+                if (tours != null)
+                    return Ok(tours);
+                else
+                    throw new Exception();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Message: {ex.Message}");
+            }
+        }
+
+        [HttpPost]
+        [Route("AddTour")]
+        [ProducesResponseType(typeof(Tour), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        public IActionResult AddTour(Tour tour)
+        {
+            try
+            {
+                var newTour = tourRepository.AddTour(tour);
+                return Ok(newTour);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Message: {ex.Message}");
+            }
+        }
+
+        [HttpDelete]
+        [Route("deleteTour")]
+        [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        public IActionResult DeleteTour(int id)
+        {
+            try
+            {
+                var tour = tourRepository.DeleteTour(id);
+                return Ok(tour);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Message: {ex.Message}");
+            }
+        }
     }
 }
 

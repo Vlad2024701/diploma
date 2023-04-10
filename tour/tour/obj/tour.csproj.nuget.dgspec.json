@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\diploma\\diploma\\tour\\tour\\tour.csproj": {}
+    "D:\\diploma\\tour\\tour\\tour.csproj": {}
   },
   "projects": {
-    "D:\\diploma\\diploma\\tour\\tour\\tour.csproj": {
+    "D:\\diploma\\tour\\tour\\tour.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\diploma\\diploma\\tour\\tour\\tour.csproj",
+        "projectUniqueName": "D:\\diploma\\tour\\tour\\tour.csproj",
         "projectName": "tour",
-        "projectPath": "D:\\diploma\\diploma\\tour\\tour\\tour.csproj",
-        "packagesPath": "C:\\Users\\simak\\.nuget\\packages\\",
-        "outputPath": "D:\\diploma\\diploma\\tour\\tour\\obj\\",
+        "projectPath": "D:\\diploma\\tour\\tour\\tour.csproj",
+        "packagesPath": "C:\\Users\\simakovich\\.nuget\\packages\\",
+        "outputPath": "D:\\diploma\\tour\\tour\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\simak\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\simakovich\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -102,7 +98,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using System.Data.Entity;
 using System.Net;
 using tour.TourRepositories.IRepositories;
-using tour.TourRepositories.Repositories;
 
 namespace tour.Controllers
 {

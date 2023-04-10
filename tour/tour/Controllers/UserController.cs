@@ -3,6 +3,7 @@ using diploma.Db.Tour.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System.Data.Entity;
 using System.Net;
+using tour.Services;
 using tour.TourRepositories.IRepositories;
 
 namespace tour.Controllers
@@ -14,9 +15,11 @@ namespace tour.Controllers
 
         private readonly ILogger<UserController> _logger;
         private readonly IUserRepository userRepository;
+        private readonly UserService userService;
 
-        public UserController(ILogger<UserController> logger, IUserRepository userRepository)
+        public UserController(ILogger<UserController> logger, IUserRepository userRepository, UserService userService)
         {
+            this.userService = userService;
             this.userRepository =userRepository;
             _logger = logger;
         }
@@ -102,6 +105,50 @@ namespace tour.Controllers
                 user.Id = id;
                 var newUser = userRepository.UpdateUser(user, id);
                 return Ok(newUser);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Message: {ex.Message}");
+            }
+        }
+
+        [HttpPost]
+        [Route("authorize")]
+        [ProducesResponseType(typeof(User), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        public IActionResult Login(string login, string password)
+        {
+            try
+            {
+                var user = userService.Authorize(login, password);
+                if (user != null)
+                {
+                    return Ok(user);
+                }
+                else
+                    return BadRequest("Incorrect login or password");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Message: {ex.Message}");
+            }
+        }
+
+        [HttpPost]
+        [Route("register")]
+        [ProducesResponseType(typeof(User), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        public IActionResult Registration(User user)
+        {
+            try
+            {
+                var newUser = userService.Registration(user);
+                if (newUser != null)
+                {
+                    return Ok(newUser);
+                }
+                else
+                    return BadRequest("This login is already taken");
             }
             catch (Exception ex)
             {
