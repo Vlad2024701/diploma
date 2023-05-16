@@ -22,7 +22,7 @@ namespace tour.TourRepositories.Repositories
                     TourName = x.TourName,
                     TourDescription = x.TourDescription,
                     TourTimeStart = x.TourTimeStart,
-                    TourTimeEnd = x.TourTimeEnd,
+                    TourTimeEnd = x.TourTimeEnd, 
                     CountryId = x.CountryId                    
                 }).ToList();
             return tours;

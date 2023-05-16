@@ -1,6 +1,6 @@
 using diploma.Db.Tour;
 using Microsoft.EntityFrameworkCore;
-using tour.Migrations;
+using tour.Db;
 using tour.Services;
 using tour.TourRepositories.IRepositories;
 using tour.TourRepositories.Repositories;
@@ -24,7 +24,9 @@ builder.Services.AddScoped<ICountryRepository, CountryRepository>();
 builder.Services.AddScoped<IHotelRepository, HotelRepository>();
 builder.Services.AddScoped<IRoomRepository, RoomRepository>();
 builder.Services.AddScoped<ITourRepository, TourRepository>();
+builder.Services.AddScoped<IPlaceRepository, PlaceRepository>();
 builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<FillDb>();
 
 var app = builder.Build();
 

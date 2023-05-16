@@ -12,10 +12,9 @@ namespace tour.Db.TourDb.Entities
         [ForeignKey("TourId")]
         [JsonIgnore]
         public virtual Tour? Tour { get; set; }
-
         public bool IsBooked { get; set; }
-        public int UserId { get; set; }
-        [ForeignKey("UserId")]
+        public string? UserLogin { get; set; }
+        [ForeignKey("Login")]
         [JsonIgnore]
         public User? User { get; set; }
     }

@@ -3,6 +3,7 @@ using diploma.Db.Tour.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System.Data.Entity;
 using System.Net;
+using tour.Db;
 using tour.Services;
 using tour.TourRepositories.IRepositories;
 
@@ -16,13 +17,35 @@ namespace tour.Controllers
         private readonly ILogger<UserController> _logger;
         private readonly IUserRepository userRepository;
         private readonly UserService userService;
+        private readonly FillDb fillDb;
 
-        public UserController(ILogger<UserController> logger, IUserRepository userRepository, UserService userService)
+        public UserController(ILogger<UserController> logger, IUserRepository userRepository, UserService userService, FillDb fillDb)
         {
             this.userService = userService;
-            this.userRepository =userRepository;
+            this.userRepository = userRepository;
+            this.fillDb = fillDb;
             _logger = logger;
         }
+
+        [HttpGet]
+        [Route("fillDb")]
+        [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        public IActionResult FillDb()
+        {
+            try
+            {
+                fillDb.FillAll();
+                //fillDb.FillTicket();
+                //fillDb.FillPlace();
+                return Ok(true);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Message: {ex.Message}");
+            }
+        }
+
         [HttpPost]
         [Route("getUser")]
         [ProducesResponseType(typeof(User), (int)HttpStatusCode.OK)]

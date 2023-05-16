@@ -113,7 +113,8 @@ namespace tour.Migrations
                     PlaceNumber = table.Column<int>(type: "int", nullable: false),
                     TourId = table.Column<int>(type: "int", nullable: false),
                     IsBooked = table.Column<bool>(type: "bit", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false)
+                    UserLogin = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Login = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -125,11 +126,10 @@ namespace tour.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Places_Users_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Places_Users_Login",
+                        column: x => x.Login,
                         principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -139,7 +139,8 @@ namespace tour.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TourId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false)
+                    UserLogin = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Login = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -151,11 +152,10 @@ namespace tour.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Ticket_Users_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Ticket_Users_Login",
+                        column: x => x.Login,
                         principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -192,14 +192,14 @@ namespace tour.Migrations
                 column: "CityId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Places_Login",
+                table: "Places",
+                column: "Login");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Places_TourId",
                 table: "Places",
                 column: "TourId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Places_UserId",
-                table: "Places",
-                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Rooms_HotelId",
@@ -207,14 +207,14 @@ namespace tour.Migrations
                 column: "HotelId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Ticket_Login",
+                table: "Ticket",
+                column: "Login");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Ticket_TourId",
                 table: "Ticket",
                 column: "TourId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Ticket_UserId",
-                table: "Ticket",
-                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tours_CountryId",

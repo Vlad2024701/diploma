@@ -12,7 +12,7 @@ using diploma.Db.Tour;
 namespace tour.Migrations
 {
     [DbContext(typeof(TourContext))]
-    [Migration("20230408092330_init")]
+    [Migration("20230421111006_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -182,20 +182,23 @@ namespace tour.Migrations
                     b.Property<bool>("IsBooked")
                         .HasColumnType("bit");
 
+                    b.Property<int?>("Login")
+                        .HasColumnType("int");
+
                     b.Property<int>("PlaceNumber")
                         .HasColumnType("int");
 
                     b.Property<int>("TourId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<string>("UserLogin")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TourId");
+                    b.HasIndex("Login");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("TourId");
 
                     b.ToTable("Places");
                 });
@@ -208,17 +211,20 @@ namespace tour.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("Login")
+                        .HasColumnType("int");
+
                     b.Property<int>("TourId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<string>("UserLogin")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TourId");
+                    b.HasIndex("Login");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("TourId");
 
                     b.ToTable("Ticket");
                 });
@@ -269,15 +275,13 @@ namespace tour.Migrations
 
             modelBuilder.Entity("tour.Db.TourDb.Entities.Place", b =>
                 {
+                    b.HasOne("diploma.Db.Tour.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("Login");
+
                     b.HasOne("diploma.Db.Tour.Entities.Tour", "Tour")
                         .WithMany("Places")
                         .HasForeignKey("TourId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("diploma.Db.Tour.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -288,15 +292,13 @@ namespace tour.Migrations
 
             modelBuilder.Entity("tour.Db.TourDb.Entities.Ticket", b =>
                 {
+                    b.HasOne("diploma.Db.Tour.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("Login");
+
                     b.HasOne("diploma.Db.Tour.Entities.Tour", "Tour")
                         .WithMany()
                         .HasForeignKey("TourId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("diploma.Db.Tour.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

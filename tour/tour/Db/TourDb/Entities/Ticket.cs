@@ -15,8 +15,8 @@ namespace tour.Db.TourDb.Entities
         //public int PlaceId { get; set; }
         //[ForeignKey("PlaceId")]
         //public virtual Place? Place { get; set; }
-        public int UserId { get; set; }
-        [ForeignKey("UserId")]
+        public string? UserLogin { get; set; }
+        [ForeignKey("Login")]
         [JsonIgnore]
         public virtual User? User { get; set; }
     }
