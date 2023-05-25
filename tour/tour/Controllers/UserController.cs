@@ -28,6 +28,22 @@ namespace tour.Controllers
         }
 
         [HttpGet]
+        [Route("test")]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        public IActionResult Test()
+        {
+            try
+            {
+                return Ok("hello");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Message: {ex.Message}");
+            }
+        }
+
+        [HttpGet]
         [Route("fillDb")]
         [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
@@ -36,6 +52,12 @@ namespace tour.Controllers
             try
             {
                 //fillDb.FillAll();
+                //fillDb.FillCity();
+                //fillDb.FillHotel();
+                //fillDb.FillRoom();
+                //fillDb.FillTour();
+                //fillDb.FillTicket();
+                //fillDb.FillPlace();
                 //fillDb.FillTicket();
                 fillDb.FillPlace();
                 return Ok(true);
@@ -139,7 +161,7 @@ namespace tour.Controllers
         [Route("authorize")]
         [ProducesResponseType(typeof(User), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        public IActionResult Login(string login, string password)
+        public IActionResult Authorization(string login, string password)
         {
             try
             {
