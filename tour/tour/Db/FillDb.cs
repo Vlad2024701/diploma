@@ -96,13 +96,13 @@ namespace tour.Db
             var listOfTours = new List<Tour>()
             {
                 new Tour(){TourName = "Travel", TourDescription = "Some information about tour",
-                    TourTimeStart = DateTime.Now, TourTimeEnd = DateTime.Now, CountryId = 1},
+                    TourTimeStart = DateTime.Now, TourTimeEnd = DateTime.Now, CountryId = 1, Cost = 123.12, DepartureTime = "14:10"},
                 new Tour(){TourName = "Travel", TourDescription = "Some information about tour",
-                    TourTimeStart = DateTime.Now, TourTimeEnd = DateTime.Now, CountryId = 1},
+                    TourTimeStart = DateTime.Now, TourTimeEnd = DateTime.Now, CountryId = 1, Cost = 133.12, DepartureTime = "14:20"},
                 new Tour(){TourName = "Travel", TourDescription = "Some information about tour",
-                    TourTimeStart = DateTime.Now, TourTimeEnd = DateTime.Now, CountryId = 2},
+                    TourTimeStart = DateTime.Now, TourTimeEnd = DateTime.Now, CountryId = 2, Cost = 1653.12, DepartureTime = "14:30"},
                 new Tour(){TourName = "Travel", TourDescription = "Some information about tour",
-                    TourTimeStart = DateTime.Now, TourTimeEnd = DateTime.Now, CountryId = 3}
+                    TourTimeStart = DateTime.Now, TourTimeEnd = DateTime.Now, CountryId = 3, Cost = 456.12, DepartureTime = "14:40"}
             };
             tourContext.AddRange(listOfTours);
             tourContext.SaveChanges();

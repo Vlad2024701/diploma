@@ -13,7 +13,8 @@ namespace diploma.Db.Tour.Entities
         public string? TourDescription { get; set; }
         public DateTime TourTimeStart { get; set; }
         public DateTime TourTimeEnd { get; set; }
-
+        public string DepartureTime { get; set; }
+        public double Cost { get; set; } 
         public int CountryId { get; set; }
         [ForeignKey("CountryId")]
         [JsonIgnore]
