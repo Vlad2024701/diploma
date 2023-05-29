@@ -36,32 +36,49 @@ namespace tour.TourRepositories.Repositories
             catch (Exception ex)
             {
                 Console.WriteLine($"Error when trying to add new hotel\nMessage: {ex.Message}");
-                return hotel;
+                return null;
             }
         }
 
         public Hotel GetHotelById(int id)
         {
-            var hotel = tourContext.Hotels.Where(x => x.Id == id)
-                .Select(x => new Hotel
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    CityId = x.CityId
-                }).FirstOrDefault();
-            return hotel;
+            try
+            {
+                var hotel = tourContext.Hotels.Where(x => x.Id == id)
+                    .Select(x => new Hotel
+                    {
+                        Id = x.Id,
+                        Name = x.Name,
+                        CityId = x.CityId,
+                        Rooms = x.Rooms
+                    }).FirstOrDefault();
+                return hotel;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("No such hotelId");
+                return null;
+            }
         }
         public bool DeleteHotel(int id)
         {
-            var hotel = GetHotelById(id);
-            if (hotel != null)
+            try
             {
-                tourContext.Hotels.Remove(hotel);
-                tourContext.SaveChanges();
-                return true;
+                var hotel = GetHotelById(id);
+                if (hotel != null)
+                {
+                    tourContext.Hotels.Remove(hotel);
+                    tourContext.SaveChanges();
+                    return true;
+                }
+                else
+                    return false;
             }
-            else
+            catch (Exception ex) 
+            {
+                Console.WriteLine("No such hotelId");
                 return false;
+            } 
         }
     }
 }

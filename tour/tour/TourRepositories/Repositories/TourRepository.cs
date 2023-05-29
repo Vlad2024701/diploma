@@ -25,7 +25,9 @@ namespace tour.TourRepositories.Repositories
                     TourTimeEnd = x.TourTimeEnd,
                     CountryId = x.CountryId,
                     Cost = x.Cost,
-                    DepartureTime = x.DepartureTime
+                    DepartureTime = x.DepartureTime,
+                    CityId = x.CityId,
+                    HotelId = x.HotelId
                 }).ToList();
             return tours;
         }
@@ -56,7 +58,9 @@ namespace tour.TourRepositories.Repositories
                     TourTimeEnd = x.TourTimeEnd,
                     CountryId = x.CountryId,
                     Cost = x.Cost,
-                    DepartureTime = x.DepartureTime
+                    DepartureTime = x.DepartureTime,
+                    CityId = x.CityId,
+                    HotelId = x.HotelId
                 }).FirstOrDefault();
             return tour;
         }

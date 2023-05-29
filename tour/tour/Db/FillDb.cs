@@ -96,13 +96,17 @@ namespace tour.Db
             var listOfTours = new List<Tour>()
             {
                 new Tour(){TourName = "Travel", TourDescription = "Some information about tour",
-                    TourTimeStart = DateTime.Now, TourTimeEnd = DateTime.Now, CountryId = 1, Cost = 123.12, DepartureTime = "14:10"},
-                new Tour(){TourName = "Travel", TourDescription = "Some information about tour",
-                    TourTimeStart = DateTime.Now, TourTimeEnd = DateTime.Now, CountryId = 1, Cost = 133.12, DepartureTime = "14:20"},
-                new Tour(){TourName = "Travel", TourDescription = "Some information about tour",
-                    TourTimeStart = DateTime.Now, TourTimeEnd = DateTime.Now, CountryId = 2, Cost = 1653.12, DepartureTime = "14:30"},
-                new Tour(){TourName = "Travel", TourDescription = "Some information about tour",
-                    TourTimeStart = DateTime.Now, TourTimeEnd = DateTime.Now, CountryId = 3, Cost = 456.12, DepartureTime = "14:40"}
+                    TourTimeStart = DateTime.Now, TourTimeEnd = DateTime.Now, CountryId = 1, Cost = 123.12, DepartureTime = "14:10",
+                CityId = 1, HotelId = 1},
+                new Tour(){TourName = "Italy", TourDescription = "Some information about tour",
+                    TourTimeStart = DateTime.Now, TourTimeEnd = DateTime.Now, CountryId = 1, Cost = 133.12, DepartureTime = "14:20",
+                CityId = 2, HotelId = 2},
+                new Tour(){TourName = "Minsk", TourDescription = "Some information about tour",
+                    TourTimeStart = DateTime.Now, TourTimeEnd = DateTime.Now, CountryId = 2, Cost = 1653.12, DepartureTime = "14:30",
+                CityId = 3, HotelId = 3},
+                new Tour(){TourName = "Poland", TourDescription = "Some information about tour",
+                    TourTimeStart = DateTime.Now, TourTimeEnd = DateTime.Now, CountryId = 3, Cost = 456.12, DepartureTime = "14:40",
+                CityId = 3, HotelId = 3}
             };
             tourContext.AddRange(listOfTours);
             tourContext.SaveChanges();

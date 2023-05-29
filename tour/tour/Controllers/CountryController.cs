@@ -3,6 +3,7 @@ using diploma.Db.Tour.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System.Data.Entity;
 using System.Net;
+using tour.Models;
 using tour.TourRepositories.IRepositories;
 using tour.TourRepositories.Repositories;
 
@@ -58,6 +59,30 @@ namespace tour.Controllers
                 return BadRequest($"Message: {ex.Message}");
             }
         }
+
+        [HttpPost]
+        [Route("AddCountryWithCity")]
+        [ProducesResponseType(typeof(CountryWithCity), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        public IActionResult AddCountryWithCity(CountryWithCity countryWithCity)
+        {
+            try
+            {
+                var newCountryWithCity = countryRepository.AddCountryWithCity(countryWithCity);
+                if (newCountryWithCity != null)
+                    return Ok(newCountryWithCity);
+                else
+                {
+                    var newErrorMessage = new ErrorMessage() { Message = "This country or city is already exist"};
+                    return BadRequest(newErrorMessage.Message);
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Message: {ex.Message}");
+            }
+        }
+
         [HttpDelete]
         [Route("deleteCountry")]
         [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]

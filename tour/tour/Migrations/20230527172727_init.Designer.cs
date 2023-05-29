@@ -12,7 +12,7 @@ using diploma.Db.Tour;
 namespace tour.Migrations
 {
     [DbContext(typeof(TourContext))]
-    [Migration("20230525123038_init")]
+    [Migration("20230527172727_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -121,7 +121,20 @@ namespace tour.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("CityId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Cost")
+                        .HasColumnType("float");
+
                     b.Property<int>("CountryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DepartureTime")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("HotelId")
                         .HasColumnType("int");
 
                     b.Property<string>("TourDescription")
@@ -138,7 +151,11 @@ namespace tour.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CityId");
+
                     b.HasIndex("CountryId");
+
+                    b.HasIndex("HotelId");
 
                     b.ToTable("Tours");
                 });
@@ -231,7 +248,7 @@ namespace tour.Migrations
                     b.HasOne("diploma.Db.Tour.Entities.Country", "Country")
                         .WithMany("Cities")
                         .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Country");
@@ -242,7 +259,7 @@ namespace tour.Migrations
                     b.HasOne("diploma.Db.Tour.Entities.City", "City")
                         .WithMany("Hotels")
                         .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("City");
@@ -253,7 +270,7 @@ namespace tour.Migrations
                     b.HasOne("diploma.Db.Tour.Entities.Hotel", "Hotel")
                         .WithMany("Rooms")
                         .HasForeignKey("HotelId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Hotel");
@@ -261,13 +278,29 @@ namespace tour.Migrations
 
             modelBuilder.Entity("diploma.Db.Tour.Entities.Tour", b =>
                 {
-                    b.HasOne("diploma.Db.Tour.Entities.Country", "Country")
-                        .WithMany()
-                        .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                    b.HasOne("diploma.Db.Tour.Entities.City", "City")
+                        .WithMany("Tours")
+                        .HasForeignKey("CityId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("diploma.Db.Tour.Entities.Country", "Country")
+                        .WithMany("Tours")
+                        .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("diploma.Db.Tour.Entities.Hotel", "Hotel")
+                        .WithMany("Tours")
+                        .HasForeignKey("HotelId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("City");
+
                     b.Navigation("Country");
+
+                    b.Navigation("Hotel");
                 });
 
             modelBuilder.Entity("tour.Db.TourDb.Entities.Place", b =>
@@ -275,13 +308,13 @@ namespace tour.Migrations
                     b.HasOne("diploma.Db.Tour.Entities.Tour", "Tour")
                         .WithMany("Places")
                         .HasForeignKey("TourId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("diploma.Db.Tour.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Tour");
@@ -293,12 +326,13 @@ namespace tour.Migrations
                 {
                     b.HasOne("diploma.Db.Tour.Entities.User", "User")
                         .WithMany()
-                        .HasForeignKey("Login");
+                        .HasForeignKey("Login")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("diploma.Db.Tour.Entities.Tour", "Tour")
                         .WithMany()
                         .HasForeignKey("TourId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Tour");
@@ -309,16 +343,22 @@ namespace tour.Migrations
             modelBuilder.Entity("diploma.Db.Tour.Entities.City", b =>
                 {
                     b.Navigation("Hotels");
+
+                    b.Navigation("Tours");
                 });
 
             modelBuilder.Entity("diploma.Db.Tour.Entities.Country", b =>
                 {
                     b.Navigation("Cities");
+
+                    b.Navigation("Tours");
                 });
 
             modelBuilder.Entity("diploma.Db.Tour.Entities.Hotel", b =>
                 {
                     b.Navigation("Rooms");
+
+                    b.Navigation("Tours");
                 });
 
             modelBuilder.Entity("diploma.Db.Tour.Entities.Tour", b =>
