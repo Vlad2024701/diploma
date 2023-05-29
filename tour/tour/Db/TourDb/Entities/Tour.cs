@@ -13,17 +13,23 @@ namespace diploma.Db.Tour.Entities
         public string? TourDescription { get; set; }
         public DateTime TourTimeStart { get; set; }
         public DateTime TourTimeEnd { get; set; }
-
+        public string DepartureTime { get; set; }
+        public double Cost { get; set; }
+        [Required]
         public int CountryId { get; set; }
         [ForeignKey("CountryId")]
         [JsonIgnore]
         public virtual Country? Country { get; set;}
-        //public int CityId { get; set; }
-        //[ForeignKey("CityId")]
-        //public virtual City? City { get; set; }
-        //public int HotelId { get; set; }
-        //[ForeignKey("HotelId")]
-        //public virtual Hotel? Hotel { get; set; }
+        [Required]
+        public int CityId { get; set; }
+        [ForeignKey("CityId")]
+        [JsonIgnore]
+        public virtual City? City { get; set; }
+        [Required]
+        public int HotelId { get; set; }
+        [ForeignKey("HotelId")]
+        [JsonIgnore]
+        public virtual Hotel? Hotel { get; set; }
         //public int RoomId { get; set; }
         //[ForeignKey("RoomId")]
         //public virtual Room? Room { get; set; }

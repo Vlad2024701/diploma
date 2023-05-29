@@ -209,3 +209,10 @@ D:\diploma\tour\tour\bin\Debug\net6.0\React.AspNet.dll
 D:\diploma\tour\tour\bin\Debug\net6.0\React.AspNet.Middleware.dll
 D:\diploma\tour\tour\bin\Debug\net6.0\React.Core.dll
 D:\diploma\tour\tour\bin\Debug\net6.0\ru-RU\JavaScriptEngineSwitcher.Core.resources.dll
+D:\diploma\diploma\tour\tour\bin\Debug\net6.0\AdvancedStringBuilder.dll
+D:\diploma\diploma\tour\tour\bin\Debug\net6.0\JavaScriptEngineSwitcher.Core.dll
+D:\diploma\diploma\tour\tour\bin\Debug\net6.0\JSPool.dll
+D:\diploma\diploma\tour\tour\bin\Debug\net6.0\React.AspNet.dll
+D:\diploma\diploma\tour\tour\bin\Debug\net6.0\React.AspNet.Middleware.dll
+D:\diploma\diploma\tour\tour\bin\Debug\net6.0\React.Core.dll
+D:\diploma\diploma\tour\tour\bin\Debug\net6.0\ru-RU\JavaScriptEngineSwitcher.Core.resources.dll

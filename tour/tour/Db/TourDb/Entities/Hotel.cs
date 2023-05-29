@@ -14,8 +14,11 @@ namespace diploma.Db.Tour.Entities
         [JsonIgnore]
         public virtual City? City { get; set; }
         public virtual IList<Room> Rooms {get; set;}
+        [JsonIgnore]
+        public virtual IList<Tour> Tours { get; set;}
         public Hotel() 
         {
+            Tours = new List<Tour>();
             Rooms = new List<Room>();
         }  
     }

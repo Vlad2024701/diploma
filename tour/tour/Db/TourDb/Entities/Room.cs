@@ -9,7 +9,7 @@ namespace diploma.Db.Tour.Entities
         [Key]
         public int Id { get; set; }
         public string? Name { get; set; }
-        public string? NumberOfGuests { get; set; }
+        public int NumberOfGuests { get; set; }
         public string? HotelBuilding { get; set; }
         public string? WindowView { get; set; }
         public int HotelId { get; set; }

@@ -43,6 +43,26 @@ namespace tour.Controllers
         }
 
         [HttpPost]
+        [Route("GetRoomById")]
+        [ProducesResponseType(typeof(Room), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        public IActionResult GetRoomById(int id)
+        {
+            try
+            {
+                var room = roomRepository.GetRoomById(id);
+                if (room != null)
+                    return Ok(room);
+                else
+                    throw new Exception();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Message: {ex.Message}");
+            }
+        }
+
+        [HttpPost]
         [Route("AddRoom")]
         [ProducesResponseType(typeof(Room), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]

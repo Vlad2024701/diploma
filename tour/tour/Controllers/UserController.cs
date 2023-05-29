@@ -59,7 +59,7 @@ namespace tour.Controllers
                 //fillDb.FillTicket();
                 //fillDb.FillPlace();
                 //fillDb.FillTicket();
-                fillDb.FillPlace();
+                fillDb.FillAll();
                 return Ok(true);
             }
             catch (Exception ex)
@@ -161,11 +161,11 @@ namespace tour.Controllers
         [Route("authorize")]
         [ProducesResponseType(typeof(User), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        public IActionResult Authorization(string login, string password)
+        public IActionResult Authorization(UserAuth userAuth)
         {
             try
             {
-                var user = userService.Authorize(login, password);
+                var user = userService.Authorize(userAuth.Login, userAuth.Password);
                 if (user != null)
                 {
                     return Ok(user);

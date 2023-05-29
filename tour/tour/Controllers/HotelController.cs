@@ -46,11 +46,28 @@ namespace tour.Controllers
         [Route("AddHotel")]
         [ProducesResponseType(typeof(Hotel), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        public IActionResult AddCountry(Hotel hotel)
+        public IActionResult AddHotel(Hotel hotel)
         {
             try
             {
                 var newHotel = hotelRepository.AddHotel(hotel);
+                return Ok(newHotel);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Message: {ex.Message}");
+            }
+        }
+
+        [HttpPost]
+        [Route("GetHotelById")]
+        [ProducesResponseType(typeof(Hotel), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        public IActionResult GetHotelById(int id)
+        {
+            try
+            {
+                var newHotel = hotelRepository.GetHotelById(id);
                 return Ok(newHotel);
             }
             catch (Exception ex)

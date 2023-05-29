@@ -43,6 +43,26 @@ namespace tour.Controllers
         }
 
         [HttpPost]
+        [Route("GetTour")]
+        [ProducesResponseType(typeof(Tour), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        public IActionResult GetTours(int id)
+        {
+            try
+            {
+                var tour = tourRepository.GetTourById(id);
+                if (tour != null)
+                    return Ok(tour);
+                else
+                    throw new Exception();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Message: {ex.Message}");
+            }
+        }
+
+        [HttpPost]
         [Route("AddTour")]
         [ProducesResponseType(typeof(Tour), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]

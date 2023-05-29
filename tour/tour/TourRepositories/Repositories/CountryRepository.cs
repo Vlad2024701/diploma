@@ -1,6 +1,8 @@
 ﻿using diploma.Db.Tour.Entities;
 using diploma.Db.Tour;
 using tour.TourRepositories.IRepositories;
+using tour.Models;
+using System.Diagnostics.Metrics;
 
 namespace tour.TourRepositories.Repositories
 {
@@ -36,7 +38,43 @@ namespace tour.TourRepositories.Repositories
             catch (Exception ex)
             {
                 Console.WriteLine($"Error when trying to add new city\nMessage: {ex.Message}");
-                return country;
+                return null;
+            }
+        }
+
+        public CountryWithCity AddCountryWithCity(CountryWithCity countryWithCity)
+        {
+            try
+            {
+                var country = tourContext.Countries
+                    .Where(x => x.Name.ToUpper() == countryWithCity.CountryName.ToUpper().Trim()).FirstOrDefault();
+                if (country == null)
+                {
+                    var newCountry = new Country() { Name = countryWithCity.CountryName };
+                    tourContext.Countries.Add(newCountry);
+                    tourContext.SaveChanges();
+                    var newCountryId = tourContext.Countries
+                        .Where(x => x.Name == countryWithCity.CountryName).FirstOrDefault();
+                    var newCity = new City() { Name = countryWithCity.CityName, CountryId = newCountryId.Id };
+                    tourContext.Cities.Add(newCity);
+                    tourContext.SaveChanges();
+                }
+                else
+                {
+                    var checkCity = tourContext.Cities
+                        .Where(x => x.Name.ToUpper() == countryWithCity.CityName.ToUpper().Trim()).FirstOrDefault();
+                    if (checkCity != null)
+                        return null;
+                    var newCity = new City() { Name = countryWithCity.CityName, CountryId = country.Id };
+                    tourContext.Cities.Add(newCity);
+                    tourContext.SaveChanges();
+                }
+                return countryWithCity;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error when trying to add new city\nMessage: {ex.Message}");
+                return null;
             }
         }
 
