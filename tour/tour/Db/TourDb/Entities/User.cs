@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
+using tour.Db.TourDb.Entities;
 
 namespace diploma.Db.Tour.Entities
 {
@@ -11,5 +13,10 @@ namespace diploma.Db.Tour.Entities
         public string? Name { get; set; }
         public string? Email { get; set; }
         public string? Role { get; set; }
+        [JsonIgnore]
+        public virtual IList<Ticket> Tickets { get; set; }
+        public User() { 
+            Tickets = new List<Ticket>();
+        }
     }
 }

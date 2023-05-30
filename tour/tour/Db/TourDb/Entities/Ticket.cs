@@ -12,12 +12,16 @@ namespace tour.Db.TourDb.Entities
         public int TourId { get; set; }
         [ForeignKey("TourId")]
         public virtual Tour? Tour { get; set; }
-        //public int PlaceId { get; set; }
-        //[ForeignKey("PlaceId")]
-        //public virtual Place? Place { get; set; }
-        public string? UserLogin { get; set; }
-        [ForeignKey("Login")]
+        public int PlaceId { get; set; }
+        [ForeignKey("PlaceId")]
+        public virtual Place? Place { get; set; }
+        public int UserId { get; set; }
+        [ForeignKey("UserId")]
         [JsonIgnore]
         public virtual User? User { get; set; }
+        public int RoomId { get; set; }
+        [ForeignKey("RoomId")]
+        [JsonIgnore]
+        public virtual Room? Room { get; set; }
     }
 }

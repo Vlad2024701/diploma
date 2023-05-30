@@ -30,9 +30,6 @@ namespace diploma.Db.Tour.Entities
         [ForeignKey("HotelId")]
         [JsonIgnore]
         public virtual Hotel? Hotel { get; set; }
-        //public int RoomId { get; set; }
-        //[ForeignKey("RoomId")]
-        //public virtual Room? Room { get; set; }
         public virtual IList<Place> Places { get; set; }
         public Tour ()
         {

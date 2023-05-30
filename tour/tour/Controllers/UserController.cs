@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Data.Entity;
 using System.Net;
 using tour.Db;
+using tour.Models;
 using tour.Services;
 using tour.TourRepositories.IRepositories;
 
@@ -140,14 +141,13 @@ namespace tour.Controllers
         }
 
         [HttpPut]
-        [Route("updateUser")]
+        [Route("{id}/updateUser")]
         [ProducesResponseType(typeof(User), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        public IActionResult UpdateUser([FromBody] User user, int id)
+        public IActionResult UpdateUser([FromBody] UserUpdate user, [FromRoute] int id)
         {
             try
             {
-                user.Id = id;
                 var newUser = userRepository.UpdateUser(user, id);
                 return Ok(newUser);
             }
