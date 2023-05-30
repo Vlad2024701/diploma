@@ -152,7 +152,7 @@ namespace tour.Migrations
                     PlaceNumber = table.Column<int>(type: "int", nullable: false),
                     TourId = table.Column<int>(type: "int", nullable: false),
                     IsBooked = table.Column<bool>(type: "bit", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false)
+                    UserId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -178,12 +178,25 @@ namespace tour.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TourId = table.Column<int>(type: "int", nullable: false),
-                    UserLogin = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Login = table.Column<int>(type: "int", nullable: true)
+                    PlaceId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    RoomId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Ticket", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Ticket_Places_PlaceId",
+                        column: x => x.PlaceId,
+                        principalTable: "Places",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Ticket_Rooms_RoomId",
+                        column: x => x.RoomId,
+                        principalTable: "Rooms",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Ticket_Tours_TourId",
                         column: x => x.TourId,
@@ -191,8 +204,8 @@ namespace tour.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Ticket_Users_Login",
-                        column: x => x.Login,
+                        name: "FK_Ticket_Users_UserId",
+                        column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -224,14 +237,24 @@ namespace tour.Migrations
                 column: "HotelId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Ticket_Login",
+                name: "IX_Ticket_PlaceId",
                 table: "Ticket",
-                column: "Login");
+                column: "PlaceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Ticket_RoomId",
+                table: "Ticket",
+                column: "RoomId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Ticket_TourId",
                 table: "Ticket",
                 column: "TourId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Ticket_UserId",
+                table: "Ticket",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tours_CityId",
@@ -253,13 +276,13 @@ namespace tour.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Ticket");
+
+            migrationBuilder.DropTable(
                 name: "Places");
 
             migrationBuilder.DropTable(
                 name: "Rooms");
-
-            migrationBuilder.DropTable(
-                name: "Ticket");
 
             migrationBuilder.DropTable(
                 name: "Tours");

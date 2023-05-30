@@ -3,6 +3,7 @@ using diploma.Db.Tour;
 using tour.TourRepositories.IRepositories;
 using tour.Models;
 using System.Diagnostics.Metrics;
+using tour.Db.TourDb.Entities;
 
 namespace tour.TourRepositories.Repositories
 {
@@ -93,6 +94,48 @@ namespace tour.TourRepositories.Repositories
             var country = GetCountryById(id);
             if (country != null)
             {
+                var cities = tourContext.Cities.Where(x => x.CountryId == id).ToList();
+                if (cities.Any())
+                {
+                    foreach (var city in cities)
+                    {
+                        var hotels = tourContext.Hotels.Where(x => x.CityId == city.Id).ToList();
+                        if (hotels.Any())
+                        {
+                            foreach (var hotel in hotels)
+                            {
+                                var rooms = tourContext.Rooms.Where(x => x.HotelId == hotel.Id).ToList();
+                                if (rooms.Any())
+                                {
+                                    foreach (var room in rooms)
+                                    {
+                                        var tickets = tourContext.Ticket.Where(x => x.RoomId == room.Id).ToList();
+                                        if (tickets.Any())
+                                        {
+                                            var placesToDelete = new List<Place>();
+                                            foreach (var ticket in tickets)
+                                            {
+                                                var places = tourContext.Places.Where(x => x.Id == ticket.PlaceId).ToList();
+                                                placesToDelete.AddRange(places);
+                                            }
+                                            tourContext.Ticket.RemoveRange(tickets);
+                                            tourContext.SaveChanges();
+                                            tourContext.Places.RemoveRange(placesToDelete);
+                                            tourContext.SaveChanges();
+                                        }
+                                    }
+                                    tourContext.Rooms.RemoveRange(rooms);
+                                    tourContext.SaveChanges();
+                                }
+                                var toursFKHotel = tourContext.Tours.Where(x=> x.HotelId == hotel.Id).ToList();
+                                tourContext.Tours.RemoveRange(toursFKHotel);
+                                tourContext.SaveChanges();
+                            }
+                        }
+
+                    }
+                    tourContext.Cities.RemoveRange(cities);
+                }
                 tourContext.Countries.Remove(country);
                 tourContext.SaveChanges();
                 return true;

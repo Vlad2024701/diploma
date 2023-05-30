@@ -2,6 +2,7 @@
 using diploma.Db.Tour.Entities;
 using Microsoft.AspNetCore.Identity;
 using System.Data.Entity;
+using tour.Models;
 using tour.TourRepositories.IRepositories;
 
 namespace tour.TourRepositories.Repositories
@@ -72,7 +73,7 @@ namespace tour.TourRepositories.Repositories
             }
         }
 
-        public User UpdateUser(User newUser, int id)
+        public User UpdateUser(UserUpdate newUser, int id)
         {
             try
             {
@@ -84,7 +85,6 @@ namespace tour.TourRepositories.Repositories
                     oldUser.Password = newUser.Password;
                     oldUser.Name = newUser.Name;
                     oldUser.Email = newUser.Email;
-                    oldUser.Role = newUser.Role;
 
                     tourContext.Update(oldUser);
                     tourContext.SaveChanges();
@@ -96,7 +96,7 @@ namespace tour.TourRepositories.Repositories
             catch (Exception ex)
             {
                 Console.WriteLine($"Error when trying to update user\nMessage: {ex.Message}");
-                return newUser;
+                return null;
             }
         }
 

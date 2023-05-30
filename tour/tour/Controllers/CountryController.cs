@@ -84,10 +84,10 @@ namespace tour.Controllers
         }
 
         [HttpDelete]
-        [Route("deleteCountry")]
+        [Route("{id}/deleteCountry")]
         [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        public IActionResult DeleteHotel(int id)
+        public IActionResult DeleteHotel([FromRoute]int id)
         {
             try
             {

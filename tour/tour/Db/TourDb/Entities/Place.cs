@@ -1,5 +1,6 @@
 ﻿using diploma.Db.Tour.Entities;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 using System.Text.Json.Serialization;
 
 namespace tour.Db.TourDb.Entities
@@ -13,9 +14,15 @@ namespace tour.Db.TourDb.Entities
         [JsonIgnore]
         public virtual Tour? Tour { get; set; }
         public bool IsBooked { get; set; }
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
         [ForeignKey("UserId")]
         [JsonIgnore]
         public User? User { get; set; }
+
+        public virtual IList<Ticket> Tickets { get; set; }
+        public Place()
+        {
+            Tickets = new List<Ticket>();
+        }
     }
 }

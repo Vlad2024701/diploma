@@ -202,7 +202,7 @@ namespace tour.Migrations
                     b.Property<int>("TourId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -222,20 +222,27 @@ namespace tour.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("Login")
+                    b.Property<int>("PlaceId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RoomId")
                         .HasColumnType("int");
 
                     b.Property<int>("TourId")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserLogin")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Login");
+                    b.HasIndex("PlaceId");
+
+                    b.HasIndex("RoomId");
 
                     b.HasIndex("TourId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Ticket");
                 });
@@ -311,8 +318,7 @@ namespace tour.Migrations
                     b.HasOne("diploma.Db.Tour.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Tour");
 
@@ -321,16 +327,33 @@ namespace tour.Migrations
 
             modelBuilder.Entity("tour.Db.TourDb.Entities.Ticket", b =>
                 {
-                    b.HasOne("diploma.Db.Tour.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("Login")
-                        .OnDelete(DeleteBehavior.Restrict);
+                    b.HasOne("tour.Db.TourDb.Entities.Place", "Place")
+                        .WithMany("Tickets")
+                        .HasForeignKey("PlaceId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("diploma.Db.Tour.Entities.Room", "Room")
+                        .WithMany("Tickets")
+                        .HasForeignKey("RoomId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("diploma.Db.Tour.Entities.Tour", "Tour")
                         .WithMany()
                         .HasForeignKey("TourId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.HasOne("diploma.Db.Tour.Entities.User", "User")
+                        .WithMany("Tickets")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Place");
+
+                    b.Navigation("Room");
 
                     b.Navigation("Tour");
 
@@ -358,9 +381,24 @@ namespace tour.Migrations
                     b.Navigation("Tours");
                 });
 
+            modelBuilder.Entity("diploma.Db.Tour.Entities.Room", b =>
+                {
+                    b.Navigation("Tickets");
+                });
+
             modelBuilder.Entity("diploma.Db.Tour.Entities.Tour", b =>
                 {
                     b.Navigation("Places");
+                });
+
+            modelBuilder.Entity("diploma.Db.Tour.Entities.User", b =>
+                {
+                    b.Navigation("Tickets");
+                });
+
+            modelBuilder.Entity("tour.Db.TourDb.Entities.Place", b =>
+                {
+                    b.Navigation("Tickets");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
+using tour.Db.TourDb.Entities;
 
 namespace diploma.Db.Tour.Entities
 {
@@ -16,5 +17,11 @@ namespace diploma.Db.Tour.Entities
         [ForeignKey("HotelId")]
         [JsonIgnore]
         public virtual Hotel? Hotel { get; set; }
+
+        public virtual IList<Ticket> Tickets { get; set; }
+        public Room()
+        {
+            Tickets = new List<Ticket>();
+        }
     }
 }

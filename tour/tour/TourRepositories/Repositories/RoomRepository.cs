@@ -44,28 +44,44 @@ namespace tour.TourRepositories.Repositories
 
         public Room GetRoomById(int id)
         {
-            var room = tourContext.Rooms.Where(x => x.Id == id)
-                .Select(x => new Room
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    HotelBuilding = x.HotelBuilding,
-                    WindowView = x.WindowView,
-                    HotelId = x.HotelId
-                }).FirstOrDefault();
-            return room;
+            try
+            {
+                var room = tourContext.Rooms.Where(x => x.Id == id)
+                    .Select(x => new Room
+                    {
+                        Id = x.Id,
+                        Name = x.Name,
+                        HotelBuilding = x.HotelBuilding,
+                        WindowView = x.WindowView,
+                        HotelId = x.HotelId
+                    }).FirstOrDefault();
+                return room;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exception message: {ex.Message}, stackTrace: {ex.StackTrace}");
+                return null;
+            }
         }
         public bool DeleteRoom(int id)
         {
-            var room = GetRoomById(id);
-            if (room != null)
+            try
             {
-                tourContext.Rooms.Remove(room);
-                tourContext.SaveChanges();
-                return true;
+                var room = GetRoomById(id);
+                if (room != null)
+                {
+                    tourContext.Rooms.Remove(room);
+                    tourContext.SaveChanges();
+                    return true;
+                }
+                else
+                    return false;
             }
-            else
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exception message: {ex.Message}, stackTrace: {ex.StackTrace}");
                 return false;
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using diploma.Db.Tour.Entities;
+using tour.Models;
 
 namespace tour.TourRepositories.IRepositories
 {
@@ -8,6 +9,6 @@ namespace tour.TourRepositories.IRepositories
         List<User> GetUsers();
         bool DeleteUser(int id);
         User CreateUser(User user);
-        User UpdateUser(User user, int id);
+        User UpdateUser(UserUpdate user, int id);
     }
 }
