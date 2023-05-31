@@ -59,10 +59,10 @@ namespace tour.Controllers
         }
 
         [HttpDelete]
-        [Route("deleteCity")]
+        [Route("{id}/deleteCity")]
         [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        public IActionResult DeleteUser(int id)
+        public IActionResult DeleteUser([FromRoute] int id)
         {
             try
             {

@@ -14,8 +14,7 @@ namespace tour.Db.TourDb.Entities
         [JsonIgnore]
         public virtual Tour? Tour { get; set; }
         public bool IsBooked { get; set; }
-        [AllowNull]
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
         [ForeignKey("UserId")]
         [JsonIgnore]
         public User? User { get; set; }

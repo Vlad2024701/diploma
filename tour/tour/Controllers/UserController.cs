@@ -59,8 +59,8 @@ namespace tour.Controllers
                 //fillDb.FillTour();
                 //fillDb.FillTicket();
                 //fillDb.FillPlace();
-                //fillDb.FillTicket();
-                fillDb.FillAll();
+                fillDb.FillTicket();
+                //fillDb.FillAll();
                 return Ok(true);
             }
             catch (Exception ex)

@@ -125,10 +125,10 @@ namespace tour.Db
         {
             var listOfTickets = new List<Ticket>()
             {
-                new Ticket(){TourId = 1, UserId = 1, PlaceId = 1},
-                new Ticket(){TourId = 1, UserId = 2, PlaceId = 7},
-                new Ticket(){TourId = 2, UserId = 2, PlaceId = 8},
-                new Ticket(){TourId = 3, UserId = 2, PlaceId = 9}
+                new Ticket(){TourId = 1, UserId = 1, PlaceId = 1, RoomId = 1},
+                new Ticket(){TourId = 1, UserId = 2, PlaceId = 7, RoomId = 2},
+                new Ticket(){TourId = 2, UserId = 2, PlaceId = 8, RoomId = 13},
+                new Ticket(){TourId = 2, UserId = 2, PlaceId = 9, RoomId = 14}
             };
             tourContext.AddRange(listOfTickets);
             tourContext.SaveChanges();
