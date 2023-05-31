@@ -15,21 +15,53 @@ namespace tour.TourRepositories.Repositories
 
         public List<Tour> GetAll()
         {
-            var tours = tourContext.Tours
-                .Select(x => new Tour
-                {
-                    Id = x.Id,
-                    TourName = x.TourName,
-                    TourDescription = x.TourDescription,
-                    TourTimeStart = x.TourTimeStart,
-                    TourTimeEnd = x.TourTimeEnd,
-                    CountryId = x.CountryId,
-                    Cost = x.Cost,
-                    DepartureTime = x.DepartureTime,
-                    CityId = x.CityId,
-                    HotelId = x.HotelId
-                }).ToList();
-            return tours;
+            try
+            {
+                var tours = tourContext.Tours
+                    .Select(x => new Tour
+                    {
+                        Id = x.Id,
+                        TourName = x.TourName,
+                        TourDescription = x.TourDescription,
+                        TourTimeStart = x.TourTimeStart,
+                        TourTimeEnd = x.TourTimeEnd,
+                        CountryId = x.CountryId,
+                        Cost = x.Cost,
+                        DepartureTime = x.DepartureTime,
+                        CityId = x.CityId,
+                        HotelId = x.HotelId,
+                        Places = x.Places
+                    }).ToList();
+                return tours;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error when trying to add new city\nMessage: {ex.Message}");
+                return null;
+            }
+        }
+        public static List<T> removeDuplicates<T>(List<T> list)
+        {
+            return new HashSet<T>(list).ToList();
+        }
+        public List<Tour> GetPopular()
+        {
+            try
+            {
+
+                var tours = GetAll();
+                var popularTours = tours.Where(x => x.Places.Count() < 10).ToList();
+                if (popularTours.Count() <= 4)
+                    popularTours.AddRange(tours);
+                var popularCheckedTours = removeDuplicates(popularTours);
+                
+                return popularTours;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error when trying to add new city\nMessage: {ex.Message}");
+                return null;
+            }
         }
 
         public Tour AddTour(Tour tour)

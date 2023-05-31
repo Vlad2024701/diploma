@@ -4,9 +4,10 @@ namespace tour.TourRepositories.IRepositories
 {
     public interface ITourRepository
     {
-        List<Tour> GetAll();
-        Tour AddTour(Tour tour);
-        Tour? GetTourById(int id);
-        bool DeleteTour(int id);
+        public List<Tour> GetAll();
+        public Tour AddTour(Tour tour);
+        public Tour? GetTourById(int id);
+        public bool DeleteTour(int id);
+        public List<Tour> GetPopular();
     }
 }
