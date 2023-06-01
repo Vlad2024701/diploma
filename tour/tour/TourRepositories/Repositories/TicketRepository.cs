@@ -54,7 +54,13 @@ namespace tour.TourRepositories.Repositories
                     var allPlacesForTour = tourContext.Tours.Where(x => x.Id == ticket.TourId).Select(x => x.Places).FirstOrDefault();
                     var placeNumbers = allPlacesForTour.Where(x => x.IsBooked).Select(x => x.PlaceNumber).ToList();
                     ticketByUserId.PlaceNumbers = placeNumbers;
-                    ticketsByUserId.Add(ticketByUserId);
+                    foreach(var ticketBUI in ticketsByUserId)
+                    {
+                        if (ticketBUI.TourName == ticketByUserId.TourName)
+                            continue;
+                        else
+                            ticketsByUserId.Add(ticketByUserId);
+                    }
                 }
             return ticketsByUserId;
             }
@@ -64,7 +70,7 @@ namespace tour.TourRepositories.Repositories
                 return null;
             }
         }
-        public List<Ticket> AddTicket(TicketToAdd ticketToAdd)
+        public bool AddTicket(TicketToAdd ticketToAdd)
         {
             try
             {
@@ -80,17 +86,18 @@ namespace tour.TourRepositories.Repositories
                     place.IsBooked = true;
                     place.UserId = ticketToAdd.UserId;
                     tourContext.SaveChanges();
+                    ticket.UserId = ticketToAdd.UserId;
                     ticket.PlaceId = placeId;
                     addedTicketsList.Add(ticket);
                     tourContext.Ticket.Add(ticket);
                     tourContext.SaveChanges();
                 }
-                return addedTicketsList;
+                return true;
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error when trying to add new room\nMessage: {ex.Message}");
-                return null;
+                return false;
             }
         }
 

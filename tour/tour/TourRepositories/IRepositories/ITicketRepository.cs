@@ -7,7 +7,7 @@ namespace tour.TourRepositories.IRepositories
     public interface ITicketRepository
     {
         List<Ticket> GetTickets();
-        List<Ticket> AddTicket(TicketToAdd ticket);
+        bool AddTicket(TicketToAdd ticket);
         bool DeleteTicket(int id);
         Ticket GetTicketById(int id);
         List<TicketByUserId> GetTicketsByUserId(int userId);

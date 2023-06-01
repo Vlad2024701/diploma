@@ -42,7 +42,7 @@ namespace tour.Controllers
 
         [HttpPost]
         [Route("AddTicket")]
-        [ProducesResponseType(typeof(List<Ticket>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public IActionResult AddTicket(TicketToAdd ticketToAdd)
         {
