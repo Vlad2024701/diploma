@@ -13,7 +13,7 @@ namespace diploma.Db.Tour.Entities
         public string? TourDescription { get; set; }
         public DateTime TourTimeStart { get; set; }
         public DateTime TourTimeEnd { get; set; }
-        public string DepartureTime { get; set; }
+        public string? DepartureTime { get; set; }
         public double Cost { get; set; }
         [Required]
         public int CountryId { get; set; }
@@ -31,7 +31,7 @@ namespace diploma.Db.Tour.Entities
         [JsonIgnore]
         public virtual Hotel? Hotel { get; set; }
         public virtual IList<Place> Places { get; set; }
-        public Tour ()
+        public Tour()
         {
             Places = new List<Place> ();
         }

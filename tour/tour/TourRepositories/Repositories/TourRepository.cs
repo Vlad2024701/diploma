@@ -40,21 +40,12 @@ namespace tour.TourRepositories.Repositories
                 return null;
             }
         }
-        public static List<T> removeDuplicates<T>(List<T> list)
-        {
-            return new HashSet<T>(list).ToList();
-        }
         public List<Tour> GetPopular()
         {
             try
             {
-
                 var tours = GetAll();
-                var popularTours = tours.Where(x => x.Places.Count() < 10).ToList();
-                if (popularTours.Count() <= 4)
-                    popularTours.AddRange(tours);
-                var popularCheckedTours = removeDuplicates(popularTours);
-                
+                var popularTours = tours.OrderBy(x=>x.Places.Count()).Take(4).ToList();
                 return popularTours;
             }
             catch (Exception ex)
@@ -92,7 +83,8 @@ namespace tour.TourRepositories.Repositories
                     Cost = x.Cost,
                     DepartureTime = x.DepartureTime,
                     CityId = x.CityId,
-                    HotelId = x.HotelId
+                    HotelId = x.HotelId,
+                    Places = x.Places.Where(x => x.IsBooked == false).ToList()
                 }).FirstOrDefault();
             return tour;
         }

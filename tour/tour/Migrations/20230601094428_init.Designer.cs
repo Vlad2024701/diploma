@@ -12,7 +12,7 @@ using diploma.Db.Tour;
 namespace tour.Migrations
 {
     [DbContext(typeof(TourContext))]
-    [Migration("20230531111721_init")]
+    [Migration("20230601094428_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -131,7 +131,6 @@ namespace tour.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("DepartureTime")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("HotelId")
