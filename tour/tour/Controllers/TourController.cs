@@ -42,11 +42,31 @@ namespace tour.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("GetPopularTours")]
+        [ProducesResponseType(typeof(List<Tour>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        public IActionResult GetPopularTours()
+        {
+            try
+            {
+                var tours = tourRepository.GetPopular();
+                if (tours != null)
+                    return Ok(tours);
+                else
+                    throw new Exception();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Message: {ex.Message}");
+            }
+        }
+
         [HttpPost]
         [Route("GetTour")]
         [ProducesResponseType(typeof(Tour), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        public IActionResult GetTours(int id)
+        public IActionResult GetTour(int id)
         {
             try
             {

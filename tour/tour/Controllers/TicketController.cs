@@ -42,14 +42,14 @@ namespace tour.Controllers
 
         [HttpPost]
         [Route("AddTicket")]
-        [ProducesResponseType(typeof(Ticket), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(List<Ticket>), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        public IActionResult AddCountry(Ticket ticket)
+        public IActionResult AddTicket(TicketToAdd ticketToAdd)
         {
             try
             {
-                var newTicket = ticketRepository.AddTicket(ticket);
-                return Ok(newTicket);
+                var newTicketsList = ticketRepository.AddTicket(ticketToAdd);
+                return Ok(newTicketsList);
             }
             catch (Exception ex)
             {
@@ -58,14 +58,14 @@ namespace tour.Controllers
         }
 
         [HttpPost]
-        [Route("GetTicektsByUserId")]
-        [ProducesResponseType(typeof(List<Ticket>), (int)HttpStatusCode.OK)]
+        [Route("{userId}/GetTicketsByUserId")]
+        [ProducesResponseType(typeof(List<TicketByUserId>), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        public IActionResult GetTicektsByUserId(int userdId)
+        public IActionResult GetTicketsByUserId([FromRoute]int userId)
         {
             try
             {
-                var ticketsForUser = ticketRepository.GetTicektsByUserId(userdId);
+                var ticketsForUser = ticketRepository.GetTicketsByUserId(userId);
                 if (ticketsForUser != null)
                     return Ok(ticketsForUser);
                 else

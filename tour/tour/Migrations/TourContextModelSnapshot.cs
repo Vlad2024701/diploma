@@ -128,7 +128,6 @@ namespace tour.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("DepartureTime")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("HotelId")

@@ -114,7 +114,7 @@ namespace tour.Migrations
                     TourDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TourTimeStart = table.Column<DateTime>(type: "datetime2", nullable: false),
                     TourTimeEnd = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DepartureTime = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DepartureTime = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Cost = table.Column<double>(type: "float", nullable: false),
                     CountryId = table.Column<int>(type: "int", nullable: false),
                     CityId = table.Column<int>(type: "int", nullable: false),

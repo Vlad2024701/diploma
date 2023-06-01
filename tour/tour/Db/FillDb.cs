@@ -137,15 +137,15 @@ namespace tour.Db
         {
             var listOfPlaces = new List<Place>()
             {
-                new Place(){PlaceNumber = 1, TourId = 1, IsBooked = false},
+                new Place(){PlaceNumber = 1, TourId = 1, IsBooked = true, UserId = 1},
                 new Place(){PlaceNumber = 2, TourId = 1, IsBooked = false},
                 new Place(){PlaceNumber = 3, TourId = 1, IsBooked = false},
-                new Place(){PlaceNumber = 4, TourId = 1, IsBooked = true, UserId = 1},
-                new Place(){PlaceNumber = 5, TourId = 1, IsBooked = true, UserId = 2},
+                new Place(){PlaceNumber = 4, TourId = 1, IsBooked = false},
+                new Place(){PlaceNumber = 5, TourId = 1, IsBooked = false},
                 new Place(){PlaceNumber = 6, TourId = 1, IsBooked = false},
-                new Place(){PlaceNumber = 1, TourId = 2, IsBooked = false},
-                new Place(){PlaceNumber = 2, TourId = 2, IsBooked = false},
-                new Place(){PlaceNumber = 2, TourId = 3, IsBooked = false},
+                new Place(){PlaceNumber = 1, TourId = 2, IsBooked = true, UserId = 2},
+                new Place(){PlaceNumber = 2, TourId = 2, IsBooked = true, UserId = 2},
+                new Place(){PlaceNumber = 2, TourId = 3, IsBooked = true, UserId = 2},
                 new Place(){PlaceNumber = 2, TourId = 3, IsBooked = false},
             };
             tourContext.AddRange(listOfPlaces);
