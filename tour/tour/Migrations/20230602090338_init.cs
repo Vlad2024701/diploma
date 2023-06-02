@@ -67,7 +67,9 @@ namespace tour.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    ImageURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HotelDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CityId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -87,6 +89,7 @@ namespace tour.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    ImageURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     NumberOfGuests = table.Column<int>(type: "int", nullable: false),
                     HotelBuilding = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -110,6 +113,7 @@ namespace tour.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    ImageURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TourName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TourDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TourTimeStart = table.Column<DateTime>(type: "datetime2", nullable: false),

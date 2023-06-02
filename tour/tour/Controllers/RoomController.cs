@@ -3,6 +3,7 @@ using diploma.Db.Tour.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System.Data.Entity;
 using System.Net;
+using tour.Models;
 using tour.TourRepositories.IRepositories;
 using tour.TourRepositories.Repositories;
 
@@ -63,14 +64,34 @@ namespace tour.Controllers
         }
 
         [HttpPost]
-        [Route("AddRoom")]
+        [Route("{hotelId}/GetRoomByHotelId")]
         [ProducesResponseType(typeof(Room), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        public IActionResult AddRoom(Room room)
+        public IActionResult GetRoomByHotelId([FromRoute] int hotelId)
         {
             try
             {
-                var newRoom = roomRepository.AddRoom(room);
+                var rooms = roomRepository.GetRoomByHotelId(hotelId);
+                if (rooms != null)
+                    return Ok(rooms);
+                else
+                    throw new Exception();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Message: {ex.Message}");
+            }
+        }
+
+        [HttpPost]
+        [Route("AddRoom")]
+        [ProducesResponseType(typeof(Room), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        public IActionResult AddRoom(RoomToAdd roomToAdd)
+        {
+            try
+            {
+                var newRoom = roomRepository.AddRoom(roomToAdd);
                 return Ok(newRoom);
             }
             catch (Exception ex)
@@ -80,10 +101,10 @@ namespace tour.Controllers
         }
 
         [HttpDelete]
-        [Route("deleteRoom")]
+        [Route("{id}/deleteRoom")]
         [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        public IActionResult DeleteRoom(int id)
+        public IActionResult DeleteRoom([FromRoute]int id)
         {
             try
             {

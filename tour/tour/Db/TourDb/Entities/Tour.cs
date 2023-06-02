@@ -9,6 +9,7 @@ namespace diploma.Db.Tour.Entities
     {
         [Key]
         public int Id { get; set; }
+        public string? ImageURL { get; set; }
         public string? TourName { get; set; }
         public string? TourDescription { get; set; }
         public DateTime TourTimeStart { get; set; }

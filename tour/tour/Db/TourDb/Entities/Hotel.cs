@@ -8,7 +8,10 @@ namespace diploma.Db.Tour.Entities
     {
         [Key]
         public int Id { get; set; }
+        public string? ImageURL { get; set; }
         public string? Name { get; set; }
+        public string? HotelDescription { get; set; }
+
         public int CityId { get; set; }
         [ForeignKey("CityId")]
         [JsonIgnore]

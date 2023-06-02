@@ -54,6 +54,8 @@ namespace tour.TourRepositories.Repositories
                     var allPlacesForTour = tourContext.Tours.Where(x => x.Id == ticket.TourId).Select(x => x.Places).FirstOrDefault();
                     var placeNumbers = allPlacesForTour.Where(x => x.IsBooked).Select(x => x.PlaceNumber).ToList();
                     ticketByUserId.PlaceNumbers = placeNumbers;
+                    if (ticketsByUserId.Count() < 1)
+                        ticketsByUserId.Add(ticketByUserId);
                     foreach(var ticketBUI in ticketsByUserId)
                     {
                         if (ticketBUI.TourName == ticketByUserId.TourName)

@@ -3,6 +3,7 @@ using diploma.Db.Tour.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System.Data.Entity;
 using System.Net;
+using tour.Models;
 using tour.TourRepositories.IRepositories;
 using tour.TourRepositories.Repositories;
 
@@ -86,11 +87,11 @@ namespace tour.Controllers
         [Route("AddTour")]
         [ProducesResponseType(typeof(Tour), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        public IActionResult AddTour(Tour tour)
+        public IActionResult AddTour(TourToAdd tourToAdd)
         {
             try
             {
-                var newTour = tourRepository.AddTour(tour);
+                var newTour = tourRepository.AddTour(tourToAdd);
                 return Ok(newTour);
             }
             catch (Exception ex)
@@ -100,10 +101,10 @@ namespace tour.Controllers
         }
 
         [HttpDelete]
-        [Route("deleteTour")]
+        [Route("{id}/deleteTour")]
         [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        public IActionResult DeleteTour(int id)
+        public IActionResult DeleteTour([FromRoute]int id)
         {
             try
             {

@@ -18,11 +18,11 @@ namespace tour.Db
             FillUser();
             FillCountry();
             FillCity();
-            FillHotel();
-            FillRoom();
-            FillTour();
-            FillPlace();
-            FillTicket();
+            //FillHotel();
+            //FillRoom();
+            //FillTour();
+            //FillPlace();
+            //FillTicket();
         }
 
         public void FillUser()
