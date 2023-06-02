@@ -1,16 +1,21 @@
 ﻿using diploma.Db.Tour.Entities;
 using diploma.Db.Tour;
 using tour.TourRepositories.IRepositories;
+using tour.Models;
 
 namespace tour.TourRepositories.Repositories
 {
     public class HotelRepository : IHotelRepository
     {
         private readonly TourContext tourContext;
+        private readonly IRoomRepository roomRepository;
+        private readonly ITourRepository tourRepository;
 
-        public HotelRepository(TourContext tourContext)
+        public HotelRepository(TourContext tourContext, IRoomRepository roomRepository, ITourRepository tourRepository)
         {
             this.tourContext = tourContext;
+            this.roomRepository = roomRepository;
+            this.tourRepository = tourRepository;
         }
         public List<Hotel> GetAll()
         {
@@ -20,15 +25,24 @@ namespace tour.TourRepositories.Repositories
                     Id = x.Id,
                     Name = x.Name,
                     CityId = x.CityId,
-                    Rooms = x.Rooms
+                    Rooms = x.Rooms,
+                    ImageURL = x.ImageURL,
+                    HotelDescription = x.HotelDescription
                 }).ToList();
             return hotels;
         }
 
-        public Hotel AddHotel(Hotel hotel)
+        public Hotel AddHotel(HotelToAdd hotelToAdd)
         {
             try
             {
+                var hotel = new Hotel()
+                {
+                    ImageURL = hotelToAdd.ImageURL,
+                    Name = hotelToAdd.Name,
+                    CityId = hotelToAdd.CityId,
+                    HotelDescription = hotelToAdd.HotelDescription
+                };
                 tourContext.Hotels.Add(hotel);
                 tourContext.SaveChanges();
                 return hotel;
@@ -50,7 +64,9 @@ namespace tour.TourRepositories.Repositories
                         Id = x.Id,
                         Name = x.Name,
                         CityId = x.CityId,
-                        Rooms = x.Rooms
+                        Rooms = x.Rooms,
+                        ImageURL = x.ImageURL,
+                        HotelDescription = x.HotelDescription
                     }).FirstOrDefault();
                 return hotel;
             }
@@ -65,6 +81,16 @@ namespace tour.TourRepositories.Repositories
             try
             {
                 var hotel = GetHotelById(id);
+                var roomsId = tourContext.Rooms.Where(x=>x.HotelId == id).Select(x=>x.Id).ToList();
+                foreach (var roomId in roomsId) 
+                {
+                    roomRepository.DeleteRoom(roomId);
+                }
+                var toursId = tourContext.Tours.Where(x => x.HotelId == id).Select(x => x.Id).ToList();
+                foreach (var tourId in toursId)
+                {
+                    tourRepository.DeleteTour(tourId);
+                }
                 if (hotel != null)
                 {
                     tourContext.Hotels.Remove(hotel);
