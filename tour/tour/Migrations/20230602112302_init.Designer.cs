@@ -12,7 +12,7 @@ using diploma.Db.Tour;
 namespace tour.Migrations
 {
     [DbContext(typeof(TourContext))]
-    [Migration("20230602090338_init")]
+    [Migration("20230602112302_init")]
     partial class init
     {
         /// <inheritdoc />
